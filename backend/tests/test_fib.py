@@ -2,6 +2,7 @@ import json
 import pytest
 import aiohttp
 
+from main import fib
 from config import config
 
 
@@ -35,7 +36,6 @@ class FibClient(object):
 
 @pytest.fixture
 def fib_pos():
-    from main import fib
     return [fib(n) for n in [3, 4, 5, 6]]
 
 def test_fib(fib_pos):
@@ -56,7 +56,7 @@ async def test_by_pos_from_cli():
     assert expected == [i.get('val') for i in response]
 
 
-async def test_val_pos_from_cli():
+async def test_by_val_from_cli():
     expected = [2584, 4181, 6765, 10946, 17711]
     client = FibClient(config.get("host"), config.get("port"), 'fibo')
     response = await client.make_request(2400, 26000, 'by_val')

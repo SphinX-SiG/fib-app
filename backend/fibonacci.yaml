@@ -1,4 +1,4 @@
-host: 'localhost'
+host: 127.0.0.1
 port: 5000
 
 fibonacci:
@@ -6,3 +6,9 @@ fibonacci:
   max_pos: 100
   min_val: 0
   max_val: 354224848179263100000
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  encoding: utf-8
+  db: 0

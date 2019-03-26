@@ -77,16 +77,6 @@ var counterApp = new Vue({
     this.ws = this.create_ws();
   },
   methods: {
-    get_cur_ip() {
-      var vm = this
-      fetch('http://httpbin.org/ip')
-        .then(function (response){
-          return response.json()
-        })
-        .then(function (data){
-          vm.curIp = data.origin
-        });
-    },
     create_ws(){
       var vm = this;
       var ws = new WebSocket('ws://localhost:5000/fibo');
