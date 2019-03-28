@@ -1,0 +1,5 @@
+.idea/
+.git/
+backend/__pycache__/
+backend/venv/
+backend/.pytest_cache/

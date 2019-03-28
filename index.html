@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>Fibonachi Counter</title>
-    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.esm.browser.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
@@ -73,7 +72,6 @@
       <user-controls :result="result" :from.number.trim.sync="counterBorders.from" :to.number.trim.sync="counterBorders.to"></user-controls>
       <progress-bar :result="result" :message.sync="message"></progress-bar>
     </div>
-    <!-- <script src="../src/main.js"></script> -->
-    <script src="./main.js"></script>
+    <script src="./dist/main.js"></script>
   </body>
 </html>

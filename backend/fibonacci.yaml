@@ -1,4 +1,4 @@
-host: 127.0.0.1
+host: 0.0.0.0
 port: 5000
 
 fibonacci:
@@ -8,7 +8,7 @@ fibonacci:
   max_val: 354224848179263100000
 
 redis:
-  host: 127.0.0.1
+  host: 172.28.1.1
   port: 6379
   encoding: utf-8
   db: 0

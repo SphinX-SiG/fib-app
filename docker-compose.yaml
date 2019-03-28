@@ -1,20 +1,43 @@
 version: '2'
 services:
-  fibapp:
+  redis:
+    image: redis:alpine
+    container_name: fib_redis
+    networks:
+      dev_network:
+        ipv4_address: 172.28.1.1
+  fibsrv:
     build:
       context: .
-      dockerfile: ./Dockerfile
-    depends_on:
+      dockerfile: ./docker/fibapp/Dockerfile
+    container_name: fib_srv
+    links:
       - redis
     environment:
       - REDIS_HOST=redis
-    ports:
-      - 8080
-      - 5000
-    expose:
-      - 8080:8080
-      - 5000:5000
-    links:
+      - REDIS_PORT=6379
+    depends_on:
       - redis
-  redis:
-    image: redis:alpine
+    networks:
+      dev_network:
+        ipv4_address: 172.28.1.2
+  fibview:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: fib_view
+    links:
+      - fibsrv
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fibsrv
+    networks:
+      dev_network:
+        ipv4_address: 172.28.1.3
+networks:
+  dev_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.1.0/16

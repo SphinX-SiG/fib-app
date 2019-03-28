@@ -1,8 +1,8 @@
 import math
 import json
 import asyncio
-import aiohttp.web
 import aioredis
+import aiohttp.web
 
 from config import config
 
@@ -103,15 +103,10 @@ async def websocket_handler(request):
     return ws
 
 
-async def arange(starts, ends, step=1):
-    for i in range(starts, ends, step):
-        yield i
-
-
 @cache_lookup_by_pos
 async def fib_handler_by_pos(pos_from, pos_to, so):
     sequence = []
-    async for pos in arange(pos_from, pos_to+1):
+    for pos in range(pos_from, pos_to+1, 1):
         msg = json.dumps({'type': 'item', 'pos': pos, 'val': fib(pos)})
         await so.send_str(msg)
         sequence.append(msg)

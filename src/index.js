@@ -25,8 +25,6 @@ var userControls = {
       <input type="radio" id="by_val" value="by_val" v-model="sliceType">
       <label for="by_val">By value</label>
       <br>
-      <span>Выбрано: {{ sliceType }}</span>
-      <br>
       <button class="btn btn-alt" name="get_sequence" @click="$parent.get_sequence(sliceType)">
         Get Sequence from {{ from }} to {{ to }}
       </button>
@@ -79,9 +77,9 @@ var counterApp = new Vue({
   methods: {
     create_ws(){
       var vm = this;
-      var ws = new WebSocket('ws://localhost:5000/fibo');
+      var ws = new WebSocket('ws://localhost:8080/fibo');
       ws.onerror = function(error) {console.log('Возникла ошибка: ' + error.message);};
-      ws.onopen = function() {console.log('Соединение установлено.')}
+      ws.onopen = function() {console.log('Соединение установлено.');}
       ws.onclose = function(event) {
         if (event.wasClean) {
           console.log('Cоединение закрыто. Код: ' + event.code + ' Причина: ' + event.reason);
@@ -101,7 +99,6 @@ var counterApp = new Vue({
       return ws;
     },
     get_sequence(_sliceType) {
-
       var req = {"action": "count", "type": _sliceType, "from": this.counterBorders.from, "to": this.counterBorders.to};
       this.result = [];
       this.ws.send(JSON.stringify(req));
