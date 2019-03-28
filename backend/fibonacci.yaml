@@ -1,0 +1,14 @@
+host: 0.0.0.0
+port: 5000
+
+fibonacci:
+  min_pos: 0
+  max_pos: 100
+  min_val: 0
+  max_val: 354224848179263100000
+
+redis:
+  host: 172.28.1.1
+  port: 6379
+  encoding: utf-8
+  db: 0
