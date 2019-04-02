@@ -176,7 +176,7 @@ async def websocket_handler(request):
     return ws
 
 
-@cache_lookup_by_pos
+# @cache_lookup_by_pos
 async def fib_handler_by_pos(pos_from, pos_to, ws_obj):
     """
     Method calculates Fibonacci sequence between borders represented by positions,
@@ -192,11 +192,11 @@ async def fib_handler_by_pos(pos_from, pos_to, ws_obj):
         await ws_obj.send_str(msg)
         sequence.append(msg)
     result = {'token': f'{pos_from}:{pos_to}', 'data': sequence}
-    await store_into_redis(result)
+    # await store_into_redis(result)
     await ws_obj.send_str(EOS)
 
 
-@cache_lookup_by_val
+# @cache_lookup_by_val
 async def fib_handler_by_val(*args, **kwargs):
     """ Wrapper function for correct cache checking """
     await fib_handler(*args, **kwargs)
@@ -222,7 +222,7 @@ async def fib_handler(_from, _to, first_elem=0, second_elem=1, pos=0, max=None, 
     if next_elem >= _to or max and next_elem >= max:
         await ws_obj.send_str(EOS)
         result = {'token': f'{_from}:{_to}', 'data': sequence}
-        await store_into_redis(result)
+        # await store_into_redis(result)
     elif _from <= next_elem and next_elem < _to:
         if first_elem == 0 and second_elem == 1:
             await ws_obj.send_str(json.dumps({'type': 'item', 'pos': pos, 'val': first_elem}))

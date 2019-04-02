@@ -2,9 +2,10 @@ var progressBar = {
   props: ['message', 'result'],
   template: `
     <div v-if="result.length > 0">
-      <ul>
-      <li v-for="item in result" :key="item.pos"> {{ item.pos }}: {{ item.val }} </li>
-      </ul>
+      <div v-for="item in result" :key="item.pos" class='sequence-item'>
+        <span class='pos'>{{ item.pos }}</span>
+        <div class='val'>{{ item.val }}</div>
+      </div>
     </div>
     <div v-else>
       <h3> {{ message }} </h3>
@@ -24,9 +25,8 @@ var userControls = {
       <label for="by_pos">By position</label>
       <input type="radio" id="by_val" value="by_val" v-model="sliceType">
       <label for="by_val">By value</label>
-      <br>
       <button class="btn btn-alt" name="get_sequence" @click="$parent.get_sequence(sliceType)">
-        Get Sequence from {{ from }} to {{ to }}
+        Calculate from {{ from }} to {{ to }}
       </button>
     </div>
   `,
