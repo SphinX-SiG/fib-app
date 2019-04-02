@@ -79,7 +79,7 @@ def cache_lookup_by_val(func):
         conn = await get_redis_conn()
         cache = await conn.execute('GET', f'{args[0]}:{args[1]}')
         if cache:
-            ws_obj = kwargs.get('so')
+            ws_obj = kwargs.get('ws_obj')
             return await response_from_cache(cache, ws_obj)
         else:
             return await func(*args, **kwargs)
@@ -165,11 +165,12 @@ async def websocket_handler(request):
                 check, err_msg = await check_request(parsed_data)
                 if not check:
                     await ws.send_str(err_msg)
+                    return ws
                 else:
                     if 'by_pos' == parsed_data.get('type'):
                         await fib_handler_by_pos(parsed_data.get('from'), parsed_data.get('to'), ws_obj=ws)
                     elif 'by_val' == parsed_data.get('type'):
-                        await fib_handler_by_val(parsed_data.get('from'), parsed_data.get('to'), max=config.get('fibonacci').get('max_val'), so=ws)
+                        await fib_handler_by_val(parsed_data.get('from'), parsed_data.get('to'), max=config.get('fibonacci').get('max_val'), ws_obj=ws)
             else:
                 await ws.send_str(msg.data + '/answer')
     return ws
@@ -184,9 +185,6 @@ async def fib_handler_by_pos(pos_from, pos_to, ws_obj):
         pos_from(int): left border of sequence
         pos_to(int): right border of sequence
         ws_obj(WebSocketResponse): for results
-
-    Returns:
-
     """
     sequence = []
     for pos in range(pos_from, pos_to+1, 1):

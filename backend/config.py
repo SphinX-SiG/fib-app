@@ -1,8 +1,9 @@
+import os
 import pathlib
+
 import yaml
 
-BASE_DIR = pathlib.Path(__file__).parent
-config_path = BASE_DIR / 'fibonacci.yaml'
+CONFIG_PATH = pathlib.Path(__file__).parent / 'fibonacci.yaml'
 
 
 def get_config(path):
@@ -11,4 +12,4 @@ def get_config(path):
     return config
 
 
-config = get_config(config_path)
+config = get_config(CONFIG_PATH).get(os.environ.get('FIBAPP_ENV'))
