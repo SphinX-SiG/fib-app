@@ -16,6 +16,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - FIBAPP_ENV=prod
     depends_on:
       - redis
     networks:
