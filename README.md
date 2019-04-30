@@ -4,7 +4,7 @@ Which calculate Fibonacci sequence by values or by position in secquence.
 
 To run application just use:
 
-`docker-compose run`
+`docker-compose up`
 
 and follow to
 `http://localhost:8080/`
